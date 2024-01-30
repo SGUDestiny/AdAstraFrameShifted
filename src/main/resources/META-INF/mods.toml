@@ -2,7 +2,7 @@ modLoader="javafml"
 loaderVersion="[46,)"
 license="${mod_license}"
 [[mods]]
-modId="frameshifted"
+modId="ad_astra_frame_shifted"
 version="1.0
 displayName="Ad Astra: Frame Shifted"
 authors="Destiny"
@@ -18,5 +18,23 @@ description='''${mod_description}'''
     modId="minecraft"
     mandatory=true
     versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.frameshifted]]
+    modId="ad_astra"
+    mandatory=true
+    versionRange="[4.4.2,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.frameshifted]]
+    modId="alexscaves"
+    mandatory=false
+    versionRange="[1.0.9,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.frameshifted]]
+    modId="geckolib"
+    mandatory=true
+    versionRange="[4.4.2,)"
     ordering="NONE"
     side="BOTH"
