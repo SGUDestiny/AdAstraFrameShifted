@@ -1,7 +1,7 @@
-package com.destiny.frame_shifted;
+package com.destiny.ad_astra_frame_shifted;
 
-import com.destiny.frame_shifted.server.FSCreativeTabRegistry;
-import com.destiny.frame_shifted.server.FSItemRegistry;
+import com.destiny.ad_astra_frame_shifted.server.FSCreativeTabRegistry;
+import com.destiny.ad_astra_frame_shifted.server.FSItemRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-@Mod(com.destiny.frame_shifted.AdAstraFrameShifted.MODID)
+@Mod(com.destiny.ad_astra_frame_shifted.AdAstraFrameShifted.MODID)
 public class AdAstraFrameShifted
 {
     public static final String MODID = "ad_astra_frame_shifted";

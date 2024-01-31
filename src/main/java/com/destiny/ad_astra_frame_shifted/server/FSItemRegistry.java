@@ -1,6 +1,6 @@
-package com.destiny.frame_shifted.server;
+package com.destiny.ad_astra_frame_shifted.server;
 
-import com.destiny.frame_shifted.AdAstraFrameShifted;
+import com.destiny.ad_astra_frame_shifted.AdAstraFrameShifted;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

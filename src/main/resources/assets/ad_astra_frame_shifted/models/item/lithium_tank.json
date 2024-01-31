@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "frame_shifted:item/lithium_tank"
+    "layer0": "ad_astra_frame_shifted:item/lithium_tank"
   }
 }

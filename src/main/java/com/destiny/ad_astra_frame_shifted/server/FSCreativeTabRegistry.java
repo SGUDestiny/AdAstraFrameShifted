@@ -1,6 +1,6 @@
-package com.destiny.frame_shifted.server;
+package com.destiny.ad_astra_frame_shifted.server;
 
-import com.destiny.frame_shifted.AdAstraFrameShifted;
+import com.destiny.ad_astra_frame_shifted.AdAstraFrameShifted;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -13,8 +13,8 @@ import net.minecraftforge.registries.RegistryObject;
 public class FSCreativeTabRegistry {
     public static final DeferredRegister<CreativeModeTab> DEF_REG = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AdAstraFrameShifted.MODID);
 
-    public static final RegistryObject<CreativeModeTab> FRAME_SHIFTED_TAB = DEF_REG.register("frame_shifted", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.frame_shifted.creative_tab"))
+    public static final RegistryObject<CreativeModeTab> FRAME_SHIFTED_TAB = DEF_REG.register("ad_astra_frame_shifted", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.ad_astra_frame_shifted.creative_tab"))
             .icon(() -> new ItemStack(FSItemRegistry.LITHIUM_TANK.get()))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .displayItems((enabledFeatures, output) -> {
