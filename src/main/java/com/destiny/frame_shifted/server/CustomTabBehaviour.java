@@ -1,4 +1,4 @@
-package com.destiny.frameshifted.server;
+package com.destiny.frame_shifted.server;
 
 import net.minecraft.world.item.CreativeModeTab;
 
