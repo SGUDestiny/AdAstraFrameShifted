@@ -19,6 +19,7 @@ public class FSCreativeTabRegistry {
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .displayItems((enabledFeatures, output) -> {
                 add(output, FSItemRegistry.LITHIUM_TANK.get());
+                add(output, FSItemRegistry.TRITIUM_TANK.get());
             })
             .build());
 
