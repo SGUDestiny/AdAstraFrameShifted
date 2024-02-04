@@ -1,69 +1,39 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        jcenter()
+        mavenCentral()
+        maven {
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+            content { includeGroup "org.spongepowered" }
+        }
+    }
+
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
 plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT' apply true
 }
 
-version = '1.0'
-group = 'com.destiny.frame_shifted'
-
-base {
-    archivesName = 'ad_astra_frame_shifted'
-}
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    copyIdeResources = true
-
-
-
-    runs {
-        configureEach {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                ad_astra_frame_shifted {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
-
-        data {
-            workingDirectory project.file('run-data')
-
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
-    }
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'org.spongepowered.mixin'
 
 repositories{
     maven {
         name = "CurseForge"
         url = "https://minecraft.curseforge.com/api/maven/"
     }
+    maven { url = 'https://maven.parchmentmc.org' } // Add this line
     maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
@@ -78,11 +48,90 @@ repositories{
     }
 }
 
+
+
+version = '1.0.9'
+group = 'com.destiny.ad_astra_frame_shifted' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'ad_astra_frame_shifted'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
+    mappings channel: 'parchment', version: '2023.09.03-1.20.1'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            arg "-mixin.config="+"citadel.mixins.json"
+            arg "-mixin.config="+"alexscaves.mixins.json"
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                alexscaves {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            workingDirectory project.file('run')
+            arg "-mixin.config="+"citadel.mixins.json"
+            arg "-mixin.config="+"alexscaves.mixins.json"
+
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                citadel {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            properties 'mixin.env.remapRefMap': 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            workingDirectory project.file('run')
+            arg "-mixin.config="+"citadel.mixins.json"
+            arg "-mixin.config="+"alexscaves.mixins.json"
+
+
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                citadel {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+// Include resources generated by data generators.
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 dependencies {
     minecraft "net.minecraftforge:forge:1.20.1-47.2.0"
     implementation fg.deobf("curse.maven:ad-astra-635042:5068694")
     implementation fg.deobf("curse.maven:geckolib-388172:5060416")
-    runtimeOnly(fg.deobf("curse.maven:alexs-caves-924854:4952948"))
+    implementation fg.deobf("curse.maven:alexs-caves-924854:4952948")
+    implementation fg.deobf("curse.maven:botarium-704113:5066854")
+    implementation fg.deobf("curse.maven:resourceful-config-714059:5020441")
+    implementation fg.deobf("curse.maven:resourceful-lib-570073:5070629")
+    implementation fg.deobf("curse.maven:citadel-331936:5065861")
+    implementation fg.deobf("curse.maven:jei-238222:4712868")
 }
 
 tasks.named('processResources', ProcessResources).configure {

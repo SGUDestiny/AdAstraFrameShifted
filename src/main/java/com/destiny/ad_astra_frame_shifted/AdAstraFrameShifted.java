@@ -2,6 +2,8 @@ package com.destiny.ad_astra_frame_shifted;
 
 import com.destiny.ad_astra_frame_shifted.server.FSCreativeTabRegistry;
 import com.destiny.ad_astra_frame_shifted.server.FSItemRegistry;
+import com.destiny.ad_astra_frame_shifted.server.recipe.FSRecipeRegistry;
+import com.destiny.ad_astra_frame_shifted.server.recipe.FSRecipeSerializers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -21,6 +23,8 @@ public class AdAstraFrameShifted
         modEventBus.addListener(this::commonSetup);
         FSItemRegistry.DEF_REG.register(modEventBus);
         FSCreativeTabRegistry.DEF_REG.register(modEventBus);
+        FSRecipeRegistry.register(modEventBus);
+        FSRecipeSerializers.RECIPE_TYPES.init();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

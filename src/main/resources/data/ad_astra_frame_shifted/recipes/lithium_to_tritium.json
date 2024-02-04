@@ -1,0 +1,9 @@
+{
+  "type": "ad_astra_frame_shifted:nuclear",
+  "ingredient": {
+    "item": "ad_astra_frame_shifted:lithium_tank"
+  },
+  "result": "ad_astra_frame_shifted:tritium_tank",
+  "experience": 0.1,
+  "cookingtime": 200
+}
